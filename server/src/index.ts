@@ -3,6 +3,7 @@ import { z } from 'zod/v4'
 import { crawlSignals, reviewWebsite } from './review.ts'
 import { boundedText } from './public-web.ts'
 import { ICON } from './icon.ts'
+import { ICON_PNG_BASE64 } from './icon-png.ts'
 
 interface Env {
   REQUEST_LIMITER?: {limit(options:{key:string}):Promise<{success:boolean}>}
@@ -42,7 +43,7 @@ function mcp(origin:string) {
     },async({url})=>run(()=>crawlSignals(url)))
     server.registerTool('compare_business_websites',{
       title:'Compare public business websites',
-      description:'Review two or three public business HTML pages using the same observable marketing signals. Each website is fetched independently and errors remain visible. Compare service clarity, contact paths and public metadata; never infer traffic, customers, revenue, rankings or AI citations from these signals. No account access or website changes.',
+      description:'Review two or three public business HTML pages using the same observable marketing signals. Each website is fetched independently and errors remain visible. Returns the same public-content fields for assessing service clarity, contact paths and metadata; traffic, customers, revenue, rankings and AI citations are not measured. No account access or website changes.',
       inputSchema:z.object({urls:z.array(urlSchema).min(2).max(3)}).strict(),annotations:{...annotations,title:'Compare public business websites'},_meta:security
     },async({urls})=>run(async()=>{
       const results=[]
@@ -57,7 +58,7 @@ function mcp(origin:string) {
 }
 
 function html(title:string,body:string) {
-  return new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title} · Protocol</title><style>body{font:17px/1.6 system-ui;margin:0;color:#181818;background:#faf9f7}main{max-width:760px;margin:64px auto;padding:0 24px}h1{font-size:36px;line-height:1.15}h2{font-size:22px;margin-top:32px}a{color:#254d37}code{font-size:14px;overflow-wrap:anywhere}footer{margin:48px 0;border-top:1px solid #ddd;padding-top:20px;font-size:14px}img{width:48px;height:48px}</style></head><body><main><img src="/icon.svg" alt="Protocol"><h1>${title}</h1>${body}<footer><a href="/">Documentation</a> · <a href="/privacy">Privacy</a> · <a href="/support">Support</a> · <a href="https://protocoltext.com/legal/terms-conditions">Terms</a><p>Protocol · Marketing for service businesses</p></footer></main></body></html>`,{headers:{...responseHeaders,'Content-Type':'text/html; charset=utf-8','Content-Security-Policy':"default-src 'none'; style-src 'unsafe-inline'; img-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"}})
+  return new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title} · Protocol</title><link rel="icon" href="/icon.png"><style>body{font:17px/1.6 system-ui;margin:0;color:#181818;background:#faf9f7}main{max-width:760px;margin:64px auto;padding:0 24px}h1{font-size:36px;line-height:1.15}h2{font-size:22px;margin-top:32px}a{color:#254d37}code{font-size:14px;overflow-wrap:anywhere}footer{margin:48px 0;border-top:1px solid #ddd;padding-top:20px;font-size:14px}img{width:48px;height:48px}</style></head><body><main><img src="/icon.svg" alt="Protocol"><h1>${title}</h1>${body}<footer><a href="/">Documentation</a> · <a href="/privacy">Privacy</a> · <a href="/support">Support</a> · <a href="https://protocoltext.com/legal/terms-conditions">Terms</a><p>Protocol · Marketing for service businesses</p></footer></main></body></html>`,{headers:{...responseHeaders,'Content-Type':'text/html; charset=utf-8','Content-Security-Policy':"default-src 'none'; style-src 'unsafe-inline'; img-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"}})
 }
 
 export default {
@@ -65,6 +66,7 @@ export default {
     const url=new URL(request.url)
     if(url.pathname==='/.well-known/openai-apps-challenge')
       return new Response(env.OPENAI_APPS_CHALLENGE??'Not configured',{status:env.OPENAI_APPS_CHALLENGE?200:404,headers:{...responseHeaders,'Content-Type':'text/plain; charset=utf-8'}})
+    if(url.pathname==='/icon.png'||url.pathname==='/favicon.ico')return new Response(Uint8Array.from(atob(ICON_PNG_BASE64),c=>c.charCodeAt(0)),{headers:{'Content-Type':'image/png','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff'}})
     if(url.pathname==='/icon.svg')return new Response(ICON,{headers:{'Content-Type':'image/svg+xml','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff'}})
     if(url.pathname==='/health')return Response.json({service:'protocol',version:VERSION,status:'ok',authentication:'none-public-data-only',tools:3},{headers:responseHeaders})
     if(url.pathname==='/')return html('Make your website easier to choose',`<p>Protocol helps service businesses get found and trusted. This first plugin reviews a public business website, checks crawl files, and compares public marketing signals across websites.</p><h2>Connect</h2><p>Add this remote MCP server in ChatGPT or Claude:</p><p><code>${url.origin}/mcp</code></p><p>No Protocol account or sign-in is required. Use public website URLs only. Private links, credentials, IP addresses, query parameters and custom ports are rejected.</p><h2>Try it</h2><ul><li>Review https://protocoltext.com and identify three useful improvements.</li><li>Check the crawl signals for https://ahxelabs.com.</li><li>Compare https://protocoltext.com and https://ahxelabs.com using observable website content.</li></ul><h2>What it checks</h2><p>Public HTML titles, descriptions, headings, contact signals, canonical URLs, indexing directives, Open Graph metadata, JSON-LD types, robots.txt and the conventional sitemap location.</p><h2>Limits</h2><p>It does not render JavaScript, test forms or speed, access private analytics, measure actual rankings or AI visibility, publish content, or change websites. A detected signal is evidence of presence, not proof that it works or brings customers.</p><p>Responses include sources, capture times and limitations. Websites may block automated fetching. The plugin respects crawl policies, limits response size, and rejects private-network destinations.</p><p><a href="https://protocoltext.com">About Protocol</a></p>`)
