@@ -1,0 +1,5 @@
+{
+  "mcpServers": {
+    "protocol": {"type": "http", "url": "https://plugins.protocoltext.com/mcp"}
+  }
+}

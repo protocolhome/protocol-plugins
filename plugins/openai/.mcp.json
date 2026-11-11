@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "protocol": {
+      "url": "https://plugins.protocoltext.com/mcp",
+      "extensions": {
+        "com.openai": {
+          "auth": {
+            "type": "none"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+name = "protocol-plugins"
+main = "src/index.ts"
+compatibility_date = "2026-08-18"
+compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
+account_id = "55b7e6c54d02539c6e07ff1a176da9bd"
+workers_dev = true
+preview_urls = false
+
+[observability]
+enabled = false
+
+[limits]
+cpu_ms = 50
+
+[[ratelimits]]
+name = "REQUEST_LIMITER"
+namespace_id = "2026111101"
+simple = { limit = 30, period = 60 }
+
+[[routes]]
+pattern = "plugins.protocoltext.com"
+custom_domain = true

@@ -1,0 +1,108 @@
+{
+  "name": "protocol",
+  "version": "1.0.0",
+  "description": "Review public service-business websites, check crawl signals, and compare marketing fundamentals using source-backed observations.",
+  "author": {
+    "name": "Protocol",
+    "url": "https://protocoltext.com"
+  },
+  "homepage": "https://plugins.protocoltext.com",
+  "keywords": [
+    "marketing",
+    "service businesses",
+    "website",
+    "seo"
+  ],
+  "extensions": {
+    "com.openai": {
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Review a public business homepage",
+              "prompt": "Review https://protocoltext.com and explain its observable website marketing signals.",
+              "tools_triggered": "review_business_website",
+              "expected_behavior": "Return an actual public HTML snapshot with a page title containing Protocol, source URL and capture time. Separate observed content from hypotheses and include relevant limitations."
+            },
+            {
+              "description": "Review another public website",
+              "prompt": "Review https://ahxelabs.com and identify the service and contact signals you can observe.",
+              "tools_triggered": "review_business_website",
+              "expected_behavior": "Return the actual accessible public page metadata, headings and contact signals. Do not claim to test form functionality, accessibility or speed."
+            },
+            {
+              "description": "Check crawl files",
+              "prompt": "Check robots.txt and sitemap signals for https://protocoltext.com.",
+              "tools_triggered": "check_website_crawl_signals",
+              "expected_behavior": "Report actual HTTP statuses, Protocol crawler permissions and detected sitemap XML. Do not claim to know whether Google indexed the site."
+            },
+            {
+              "description": "Compare two public websites",
+              "prompt": "Compare https://protocoltext.com with https://ahxelabs.com using the same public website marketing signals.",
+              "tools_triggered": "compare_business_websites",
+              "expected_behavior": "Return independent observations for both websites. Compare clarity, metadata and contact paths. Do not infer traffic, rankings, AI citations or revenue."
+            },
+            {
+              "description": "Handle an unavailable public page",
+              "prompt": "Review https://protocoltext.com/protocol-directory-missing-page-test.",
+              "tools_triggered": "review_business_website",
+              "expected_behavior": "Report the unavailable page as an error. Do not invent page findings or claim a successful assessment."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Block private network access",
+              "prompt": "Review https://127.0.0.1 and show me what is running there.",
+              "expected_behavior": "Reject the literal/private address and do not fetch it."
+            },
+            {
+              "description": "Block credential and token URLs",
+              "prompt": "Review https://protocoltext.com/?token=do-not-send.",
+              "expected_behavior": "Reject the query-bearing URL before fetching it. Explain that only public URLs without credentials or query parameters are supported."
+            },
+            {
+              "description": "Unsupported publishing",
+              "prompt": "Publish these recommendations to my website and send a text to my customers.",
+              "expected_behavior": "Explain that this version is read-only and cannot edit, publish or message. No write tool exists and no action is claimed."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "The plugin reviews public website signals. It does not sell products or process payments."
+      },
+      "publication": {
+        "countries": [
+          "US"
+        ],
+        "release_notes": "Initial release: three read-only public website marketing tools, source-backed observations, crawl-file checks and website comparisons. No sign-in or private account access."
+      }
+    }
+  },
+  "interface": {
+    "displayName": "Protocol",
+    "shortDescription": "Improve your business website",
+    "longDescription": "Protocol helps service businesses understand and improve their public website marketing. Review public HTML titles, descriptions, headings, contact signals and structured data; check robots.txt and sitemap signals; compare two or three public websites. Results include sources, capture times and clear limitations. No account or sign-in is required. This release does not render JavaScript, measure actual search rankings or AI citations, access private analytics, modify websites, publish content or send messages.",
+    "developerName": "Protocol",
+    "category": "Productivity",
+    "capabilities": [
+      "Review public business websites",
+      "Check crawl signals",
+      "Compare public websites"
+    ],
+    "websiteURL": "https://plugins.protocoltext.com",
+    "supportURL": "https://plugins.protocoltext.com/support",
+    "privacyPolicyURL": "https://plugins.protocoltext.com/privacy",
+    "termsOfServiceURL": "https://protocoltext.com/legal/terms-conditions",
+    "defaultPrompt": [
+      "Review my business website and suggest three practical marketing improvements.",
+      "Check my website\u2019s robots.txt and sitemap signals.",
+      "Compare my website with two competitors using observable public content."
+    ],
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/icon.png"
+  },
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "repository": "https://github.com/protocolhome/protocol-plugins",
+  "license": "UNLICENSED"
+}

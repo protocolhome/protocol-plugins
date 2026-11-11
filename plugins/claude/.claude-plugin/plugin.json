@@ -1,0 +1,21 @@
+{
+  "name": "protocol",
+  "version": "1.0.0",
+  "description": "Review public service-business websites, check crawl signals, and compare marketing fundamentals using source-backed observations.",
+  "author": {
+    "name": "Protocol",
+    "email": "support@protocolsite.com",
+    "url": "https://protocoltext.com"
+  },
+  "homepage": "https://plugins.protocoltext.com",
+  "repository": "https://github.com/protocolhome/protocol-plugins",
+  "license": "UNLICENSED",
+  "keywords": [
+    "marketing",
+    "service-business",
+    "website",
+    "seo"
+  ],
+  "icon": "./assets/icon.png",
+  "privacyPolicyUrl": "https://plugins.protocoltext.com/privacy"
+}
