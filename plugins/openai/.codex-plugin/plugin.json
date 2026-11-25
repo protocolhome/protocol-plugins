@@ -1,6 +1,6 @@
 {
   "name": "protocol",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Review public service-business websites, check crawl signals, and compare marketing fundamentals using source-backed observations.",
   "author": {
     "name": "Protocol",
@@ -67,6 +67,7 @@
             }
           ]
         },
+        "demo_recording_url": "https://github.com/protocolhome/protocol-plugins/releases/download/v1.0.0/protocol-walkthrough.mp4",
         "commerce": false,
         "commerce_description": "The plugin reviews public website signals. It does not sell products or process payments."
       },
@@ -74,14 +75,14 @@
         "countries": [
           "US"
         ],
-        "release_notes": "Initial release: three read-only public website marketing tools, source-backed observations, crawl-file checks and website comparisons. No sign-in or private account access."
+        "release_notes": "Renamed the listing to Protocol Website Review and clarified Protocol's publisher domain and read-only website review capabilities. The three existing public website tools and permissions are unchanged."
       }
     }
   },
   "interface": {
-    "displayName": "Protocol",
-    "shortDescription": "Improve your business website",
-    "longDescription": "Protocol helps service businesses understand and improve their public website marketing. Review public HTML titles, descriptions, headings, contact signals and structured data; check robots.txt and sitemap signals; compare two or three public websites. Results include sources, capture times and clear limitations. No account or sign-in is required. This release does not render JavaScript, measure actual search rankings or AI citations, access private analytics, modify websites, publish content or send messages.",
+    "displayName": "Protocol Website Review",
+    "shortDescription": "Review public website signals",
+    "longDescription": "Protocol Website Review is provided by Protocol (protocoltext.com). Review public service-business website HTML titles, descriptions, headings, contact signals and structured data; check robots.txt and sitemap signals; compare two or three public websites. Results include sources, capture times and clear limitations. No account or sign-in is required. This release does not render JavaScript, measure actual search rankings or AI citations, access private analytics, modify websites, publish content or send messages.",
     "developerName": "Protocol",
     "category": "Productivity",
     "capabilities": [

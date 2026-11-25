@@ -1,4 +1,8 @@
-# Protocol
+# Protocol Website Review
+
+Protocol Website Review is provided by [Protocol](https://protocoltext.com).
+The service and documentation at `plugins.protocoltext.com` are hosted on a
+subdomain of Protocol's `protocoltext.com` domain.
 
 Protocol helps service businesses get found and trusted. This plugin reviews
 public website content and crawl signals so owners can choose practical
